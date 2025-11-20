@@ -63,7 +63,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/6)
+    (0/10)
   </span>
 </td>
 </tr>
@@ -77,10 +77,14 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.jpribeiro;
 &nbsp;
+&nbsp;import com.jpribeiro.DAO.BibliotecaDAO;
 &nbsp;import com.jpribeiro.DAO.Database;
 &nbsp;import com.jpribeiro.controller.GeralController;
 &nbsp;import com.jpribeiro.controller.JogoController;
 &nbsp;import com.jpribeiro.controller.UsuarioController;
+&nbsp;import com.jpribeiro.service.BibliotecaService;
+&nbsp;import com.jpribeiro.service.JogoService;
+&nbsp;import com.jpribeiro.service.UsuarioService;
 &nbsp;import io.javalin.Javalin;
 &nbsp;
 &nbsp;import java.sql.SQLException;
@@ -91,9 +95,14 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 <b class="nc">&nbsp;        Javalin app = Javalin.create().start(7000);</b>
 &nbsp;
-<b class="nc">&nbsp;        new UsuarioController(app);</b>
-<b class="nc">&nbsp;        new JogoController(app);</b>
-<b class="nc">&nbsp;        new GeralController(app);</b>
+<b class="nc">&nbsp;        UsuarioService usuarioService = new UsuarioService();</b>
+<b class="nc">&nbsp;        JogoService jogoService = new JogoService();</b>
+<b class="nc">&nbsp;        BibliotecaService bibliotecaService = new BibliotecaService();</b>
+<b class="nc">&nbsp;        BibliotecaDAO bibliotecaDAO = new BibliotecaDAO();</b>
+&nbsp;
+<b class="nc">&nbsp;        new UsuarioController(app, usuarioService, jogoService, bibliotecaDAO);</b>
+<b class="nc">&nbsp;        new JogoController(app, jogoService);</b>
+<b class="nc">&nbsp;        new GeralController(app, bibliotecaService, usuarioService, jogoService);</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -119,7 +128,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-11-20 15:01</div>
+    <div style="float:right;">generated on 2025-11-20 20:00</div>
 </div>
 </body>
 </html>

@@ -11,9 +11,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -31,37 +31,114 @@ class UsuarioServiceTest {
     @Test
     void deveCriarUsuarioEAdicionarJogos() throws SQLException {
         String nome = "Teste";
-        String email = "teste@email.com";
-        List<String> jogosIdsStr = Arrays.asList("10", "20");
+        String email = "t@t.com";
+        List<String> jogosIds = Arrays.asList("10", "20");
 
-        when(usuarioDAO.add(any(Usuario.class))).thenReturn(99);
+        when(usuarioDAO.add(any())).thenReturn(99);
 
-        service.addUsuario(nome, email, jogosIdsStr);
-
-        verify(usuarioDAO, times(1)).add(any(Usuario.class));
-
-        verify(bibliotecaDAO, times(1)).addJogosAoUsuario(eq(99), eq(Arrays.asList(10, 20)));
-    }
-
-    @Test
-    void deveIgnorarIdsInvalidosAoAdicionarJogos() throws SQLException {
-        List<String> jogosIdsStr = Arrays.asList("10", "XYZ");
-
-        when(usuarioDAO.add(any(Usuario.class))).thenReturn(50);
-
-        service.addUsuario("Teste", "t@t.com", jogosIdsStr);
-
-        verify(bibliotecaDAO).addJogosAoUsuario(eq(50), eq(Collections.singletonList(10)));
-    }
-
-    @Test
-    void naoDeveChamarBibliotecaSeListaForVazia() throws SQLException {
-        List<String> listaVazia = Collections.emptyList();
-        when(usuarioDAO.add(any(Usuario.class))).thenReturn(1);
-
-        service.addUsuario("Teste", "t@t.com", listaVazia);
+        service.addUsuario(nome, email, jogosIds);
 
         verify(usuarioDAO).add(any(Usuario.class));
+        verify(bibliotecaDAO).addJogosAoUsuario(99, Arrays.asList(10, 20));
+    }
+
+    @Test
+    void deveCriarUsuarioSemJogosQuandoListaForNull() throws SQLException {
+        when(usuarioDAO.add(any())).thenReturn(1);
+
+        service.addUsuario("Joao", "j@j.com", null);
+
+        verify(usuarioDAO).add(any());
         verify(bibliotecaDAO, never()).addJogosAoUsuario(anyInt(), anyList());
+    }
+
+    @Test
+    void deveIgnorarJogosInvalidos() throws SQLException {
+        when(usuarioDAO.add(any())).thenReturn(5);
+
+        List<String> invalido = Arrays.asList("abc", "10");
+
+        service.addUsuario("Teste", "t@t.com", invalido);
+
+        verify(bibliotecaDAO).addJogosAoUsuario(5, List.of(10));
+    }
+
+    @Test
+    void deveLancarErroSeIdInvalidoFind() {
+        assertThrows(IllegalArgumentException.class,
+                () -> service.findUsuarioById(0));
+    }
+
+    @Test
+    void deveLancarErroSeUsuarioNaoExiste() throws SQLException {
+        when(usuarioDAO.findById(1)).thenReturn(null);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> service.findUsuarioById(1));
+    }
+
+    @Test
+    void deveRetornarUsuarioSeEncontrado() throws SQLException {
+        Usuario u = new Usuario(1, "A", "B");
+        when(usuarioDAO.findById(1)).thenReturn(u);
+
+        Usuario resultado = service.findUsuarioById(1);
+
+        assertEquals(u, resultado);
+    }
+
+    @Test
+    void deveRetornarTodosUsuarios() throws SQLException {
+        List<Usuario> lista = List.of(new Usuario(1, "A", "B"));
+
+        when(usuarioDAO.findAll()).thenReturn(lista);
+
+        assertEquals(lista, service.findAllUsuarios());
+    }
+
+    @Test
+    void deveLancarErroUpdateSeIdInvalido() {
+        assertThrows(IllegalArgumentException.class,
+                () -> service.updateUsuario(0, "A", "B"));
+    }
+
+    @Test
+    void deveLancarErroUpdateSeUsuarioNaoExiste() throws SQLException {
+        when(usuarioDAO.findById(1)).thenReturn(null);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> service.updateUsuario(1, "A", "B"));
+    }
+
+    @Test
+    void deveAtualizarUsuario() throws SQLException {
+        when(usuarioDAO.findById(1)).thenReturn(new Usuario(1, "Antigo", "antigo@mail.com"));
+
+        service.updateUsuario(1, "Novo", "novo@mail.com");
+
+        verify(usuarioDAO).update(any(Usuario.class));
+    }
+
+    @Test
+    void deveLancarErroDeleteIdInvalido() {
+        assertThrows(IllegalArgumentException.class,
+                () -> service.deleteUsuario(0));
+    }
+
+    @Test
+    void deveLancarErroDeleteSeUsuarioNaoExiste() throws SQLException {
+        when(usuarioDAO.findById(1)).thenReturn(null);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> service.deleteUsuario(1));
+    }
+
+    @Test
+    void deveDeletarUsuario() throws SQLException {
+        when(usuarioDAO.findById(2)).thenReturn(new Usuario(2, "A", "B"));
+
+        service.deleteUsuario(2);
+
+        verify(usuarioDAO).delete(2);
     }
 }

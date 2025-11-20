@@ -7,7 +7,15 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class JogoService {
-    private final JogoDAO jogoDAO = new JogoDAO();
+    private final JogoDAO jogoDAO;
+
+    public JogoService() {
+        this.jogoDAO = new JogoDAO();
+    }
+
+    public JogoService(JogoDAO jogoDAO) {
+        this.jogoDAO = jogoDAO;
+    }
 
     public void addJogo(String nome, double preco, String descricao) throws SQLException {
         jogoDAO.add(new Jogo(nome, preco, descricao));

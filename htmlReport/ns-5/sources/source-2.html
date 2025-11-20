@@ -48,34 +48,34 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">JogoService</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    85,7%
   </span>
   <span class="absValue">
-    (0/6)
+    (6/7)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/12)
+    (12/12)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    91,7%
   </span>
   <span class="absValue">
-    (0/22)
+    (22/24)
   </span>
 </td>
 </tr>
@@ -95,57 +95,65 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import java.sql.SQLException;
 &nbsp;import java.util.List;
 &nbsp;
-<b class="nc">&nbsp;public class JogoService {</b>
-<b class="nc">&nbsp;    private final JogoDAO jogoDAO = new JogoDAO();</b>
+&nbsp;public class JogoService {
+&nbsp;    private final JogoDAO jogoDAO;
+&nbsp;
+<b class="nc">&nbsp;    public JogoService() {</b>
+<b class="nc">&nbsp;        this.jogoDAO = new JogoDAO();</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    public JogoService(JogoDAO jogoDAO) {</b>
+<b class="fc">&nbsp;        this.jogoDAO = jogoDAO;</b>
+&nbsp;    }
 &nbsp;
 &nbsp;    public void addJogo(String nome, double preco, String descricao) throws SQLException {
-<b class="nc">&nbsp;        jogoDAO.add(new Jogo(nome, preco, descricao));</b>
+<b class="fc">&nbsp;        jogoDAO.add(new Jogo(nome, preco, descricao));</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public Jogo findJogoById(int id) throws SQLException {
-<b class="nc">&nbsp;        if (id &lt;= 0) {</b>
-<b class="nc">&nbsp;            throw new IllegalArgumentException(&quot;ID inválido&quot;);</b>
+<b class="fc">&nbsp;        if (id &lt;= 0) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;ID inválido&quot;);</b>
 &nbsp;        }
 &nbsp;
-<b class="nc">&nbsp;        Jogo jogo = jogoDAO.findById(id);</b>
+<b class="fc">&nbsp;        Jogo jogo = jogoDAO.findById(id);</b>
 &nbsp;
-<b class="nc">&nbsp;        if (jogo == null) {</b>
-<b class="nc">&nbsp;            throw new IllegalArgumentException(&quot;Jogo não encontrado&quot;);</b>
+<b class="fc">&nbsp;        if (jogo == null) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Jogo não encontrado&quot;);</b>
 &nbsp;        }
 &nbsp;
-<b class="nc">&nbsp;        return jogo;</b>
+<b class="fc">&nbsp;        return jogo;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public List&lt;Jogo&gt; findAllJogos() throws SQLException {
-<b class="nc">&nbsp;        return jogoDAO.findAll();</b>
+<b class="fc">&nbsp;        return jogoDAO.findAll();</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public void updateJogo(int id, String nome, double preco, String descricao) throws SQLException {
-<b class="nc">&nbsp;        if (id &lt;= 0) {</b>
-<b class="nc">&nbsp;            throw new IllegalArgumentException(&quot;ID inválido&quot;);</b>
+<b class="fc">&nbsp;        if (id &lt;= 0) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;ID inválido&quot;);</b>
 &nbsp;        }
 &nbsp;
-<b class="nc">&nbsp;        Jogo existente = jogoDAO.findById(id);</b>
+<b class="fc">&nbsp;        Jogo existente = jogoDAO.findById(id);</b>
 &nbsp;
-<b class="nc">&nbsp;        if (existente == null) {</b>
-<b class="nc">&nbsp;            throw new IllegalArgumentException(&quot;Jogo não encontrado para atualização&quot;);</b>
+<b class="fc">&nbsp;        if (existente == null) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Jogo não encontrado para atualização&quot;);</b>
 &nbsp;        }
 &nbsp;
-<b class="nc">&nbsp;        jogoDAO.update(new Jogo(id, nome, preco, descricao));</b>
+<b class="fc">&nbsp;        jogoDAO.update(new Jogo(id, nome, preco, descricao));</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public void deleteJogo(int id) throws SQLException {
-<b class="nc">&nbsp;        if (id &lt;= 0) {</b>
-<b class="nc">&nbsp;            throw new IllegalArgumentException(&quot;ID inválido&quot;);</b>
+<b class="fc">&nbsp;        if (id &lt;= 0) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;ID inválido&quot;);</b>
 &nbsp;        }
 &nbsp;
-<b class="nc">&nbsp;        Jogo existente = jogoDAO.findById(id);</b>
+<b class="fc">&nbsp;        Jogo existente = jogoDAO.findById(id);</b>
 &nbsp;
-<b class="nc">&nbsp;        if (existente == null) {</b>
-<b class="nc">&nbsp;            throw new IllegalArgumentException(&quot;Jogo não encontrado para exclusão&quot;);</b>
+<b class="fc">&nbsp;        if (existente == null) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Jogo não encontrado para exclusão&quot;);</b>
 &nbsp;        }
 &nbsp;
-<b class="nc">&nbsp;        jogoDAO.delete(id);</b>
+<b class="fc">&nbsp;        jogoDAO.delete(id);</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -171,7 +179,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-11-20 15:01</div>
+    <div style="float:right;">generated on 2025-11-20 20:00</div>
 </div>
 </body>
 </html>

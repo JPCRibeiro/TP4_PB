@@ -48,34 +48,34 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">JogoView</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    66,7%
   </span>
   <span class="absValue">
-    (0/3)
+    (2/3)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    92,9%
   </span>
   <span class="absValue">
-    (0/12)
+    (13/14)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    92,6%
   </span>
   <span class="absValue">
-    (0/22)
+    (25/27)
   </span>
 </td>
 </tr>
@@ -92,11 +92,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import com.jpribeiro.model.Jogo;
 &nbsp;
 &nbsp;import java.util.List;
+&nbsp;import java.util.Locale;
 &nbsp;import java.util.Map;
 &nbsp;
 <b class="nc">&nbsp;public class JogoView {</b>
 &nbsp;    public static String renderList(List&lt;Jogo&gt; jogos) {
-<b class="nc">&nbsp;        StringBuilder html = new StringBuilder(&quot;&quot;&quot;</b>
+<b class="fc">&nbsp;        StringBuilder html = new StringBuilder(&quot;&quot;&quot;</b>
 &nbsp;                &lt;!DOCTYPE html&gt;
 &nbsp;                &lt;html lang=&quot;pt&quot;&gt;
 &nbsp;                &lt;head&gt;
@@ -108,9 +109,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;                &lt;body&gt;
 &nbsp;        &quot;&quot;&quot;);
 &nbsp;
-<b class="nc">&nbsp;        html.append(HeaderView.render());</b>
+<b class="fc">&nbsp;        html.append(HeaderView.render());</b>
 &nbsp;
-<b class="nc">&nbsp;            html.append(&quot;&quot;&quot;</b>
+<b class="fc">&nbsp;            html.append(&quot;&quot;&quot;</b>
 &nbsp;                &lt;div class=&quot;container mt-5&quot;&gt;
 &nbsp;                    &lt;h1&gt;Lista de Jogos&lt;/h1&gt;
 &nbsp;                    &lt;a href=&quot;/jogos/adicionar&quot; class=&quot;btn btn-primary mb-3 mt-4&quot;&gt;Adicionar Novo Jogo&lt;/a&gt;
@@ -127,8 +128,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;                        &lt;tbody&gt;
 &nbsp;                &quot;&quot;&quot;);
 &nbsp;
-<b class="nc">&nbsp;        for (Jogo jogo : jogos) {</b>
-<b class="nc">&nbsp;            html.append(String.format(&quot;&quot;&quot;</b>
+<b class="fc">&nbsp;        for (Jogo jogo : jogos) {</b>
+<b class="fc">&nbsp;            html.append(String.format(&quot;&quot;&quot;</b>
 &nbsp;                    &lt;tr&gt;
 &nbsp;                        &lt;td&gt;%d&lt;/td&gt;
 &nbsp;                        &lt;td&gt;%s&lt;/td&gt;
@@ -141,10 +142,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;                            &lt;/form&gt;
 &nbsp;                        &lt;/td&gt;
 &nbsp;                    &lt;/tr&gt;
-<b class="nc">&nbsp;                    &quot;&quot;&quot;, jogo.getId(), jogo.getJogo(), jogo.getPreco(), jogo.getDescricao(), jogo.getId(), jogo.getId()));</b>
+<b class="fc">&nbsp;                    &quot;&quot;&quot;, jogo.getId(), jogo.getJogo(), jogo.getPreco(), jogo.getDescricao(), jogo.getId(), jogo.getId()));</b>
 &nbsp;        }
 &nbsp;
-<b class="nc">&nbsp;        html.append(&quot;&quot;&quot;</b>
+<b class="fc">&nbsp;        html.append(&quot;&quot;&quot;</b>
 &nbsp;                        &lt;/tbody&gt;
 &nbsp;                    &lt;/table&gt;
 &nbsp;                    &lt;/div&gt;
@@ -152,25 +153,37 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;                &lt;/html&gt;
 &nbsp;                &quot;&quot;&quot;);
 &nbsp;
-<b class="nc">&nbsp;        return html.toString();</b>
+<b class="fc">&nbsp;        return html.toString();</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public static String renderForm(Map&lt;String, Object&gt; model) {
-<b class="nc">&nbsp;        Object id = model.get(&quot;id&quot;);</b>
-<b class="nc">&nbsp;        String action = id != null ? &quot;/jogos/editar/&quot; + id : &quot;/jogos&quot;;</b>
-<b class="nc">&nbsp;        String pageTitle = id != null ? &quot;GameTrack - Editar Jogo&quot; : &quot;GameTrack - Novo Jogo&quot;;</b>
-<b class="nc">&nbsp;        String title = id != null ? &quot;Editar Jogo&quot; : &quot;Novo Jogo&quot;;</b>
+<b class="fc">&nbsp;        Object id = model.get(&quot;id&quot;);</b>
+<b class="fc">&nbsp;        String action = id != null ? &quot;/jogos/editar/&quot; + id : &quot;/jogos&quot;;</b>
+<b class="fc">&nbsp;        String pageTitle = id != null ? &quot;GameTrack - Editar Jogo&quot; : &quot;GameTrack - Novo Jogo&quot;;</b>
+<b class="fc">&nbsp;        String title = id != null ? &quot;Editar Jogo&quot; : &quot;Novo Jogo&quot;;</b>
 &nbsp;
-<b class="nc">&nbsp;        String jogo = (String) model.getOrDefault(&quot;jogo&quot;, &quot;&quot;);</b>
-<b class="nc">&nbsp;        String descricao = (String) model.getOrDefault(&quot;descricao&quot;, &quot;&quot;);</b>
-<b class="nc">&nbsp;        Double preco = (Double) model.getOrDefault(&quot;preco&quot;, 0.0);</b>
-<b class="nc">&nbsp;        String erro = (String) model.get(&quot;erro&quot;);</b>
+<b class="fc">&nbsp;        String jogo = (String) model.getOrDefault(&quot;jogo&quot;, &quot;&quot;);</b>
+<b class="fc">&nbsp;        String descricao = (String) model.getOrDefault(&quot;descricao&quot;, &quot;&quot;);</b>
+<b class="fc">&nbsp;        Object precoObj = model.getOrDefault(&quot;preco&quot;, 0.0);</b>
+&nbsp;        Double preco;
 &nbsp;
-<b class="nc">&nbsp;        String erroHtml = (erro != null &amp;&amp; !erro.isBlank())</b>
-<b class="nc">&nbsp;                ? String.format(&quot;&lt;div class=&#39;alert alert-danger&#39;&gt;%s&lt;/div&gt;&quot;, erro)</b>
-<b class="nc">&nbsp;                : &quot;&quot;;</b>
+<b class="fc">&nbsp;        if (precoObj instanceof Number) {</b>
+<b class="fc">&nbsp;            preco = ((Number) precoObj).doubleValue();</b>
+&nbsp;        } else {
+&nbsp;            try {
+<b class="fc">&nbsp;                String precoStr = precoObj.toString().replace(&quot;,&quot;, &quot;.&quot;);</b>
+<b class="fc">&nbsp;                preco = Double.parseDouble(precoStr);</b>
+&nbsp;            } catch (Exception e) {
+<b class="nc">&nbsp;                preco = 0.0;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        String erro = (String) model.get(&quot;erro&quot;);</b>
 &nbsp;
-<b class="nc">&nbsp;        return String.format(&quot;&quot;&quot;</b>
+<b class="pc">&nbsp;        String erroHtml = (erro != null &amp;&amp; !erro.isBlank())</b>
+<b class="fc">&nbsp;                ? String.format(&quot;&lt;div class=&#39;alert alert-danger&#39;&gt;%s&lt;/div&gt;&quot;, erro)</b>
+<b class="fc">&nbsp;                : &quot;&quot;;</b>
+&nbsp;
+<b class="fc">&nbsp;        return String.format(Locale.US, &quot;&quot;&quot;</b>
 &nbsp;        &lt;!DOCTYPE html&gt;
 &nbsp;        &lt;html lang=&quot;pt&quot;&gt;
 &nbsp;        &lt;head&gt;
@@ -205,7 +218,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;        &lt;/html&gt;
 &nbsp;        &quot;&quot;&quot;,
 &nbsp;                pageTitle,
-<b class="nc">&nbsp;                HeaderView.render(),</b>
+<b class="fc">&nbsp;                HeaderView.render(),</b>
 &nbsp;                title,
 &nbsp;                erroHtml,
 &nbsp;                action,
@@ -239,7 +252,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-11-20 15:01</div>
+    <div style="float:right;">generated on 2025-11-20 20:00</div>
 </div>
 </body>
 </html>

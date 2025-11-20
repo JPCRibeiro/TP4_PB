@@ -7,30 +7,36 @@ import io.javalin.Javalin;
 import java.util.HashMap;
 
 public class JogoController {
-    private final JogoService service = new JogoService();
+    private final JogoService service;
 
-    public JogoController(Javalin app) {
+    public JogoController(Javalin app, JogoService service) {
+        this.service = service;
+
         app.get("/jogos", ctx -> ctx.html(JogoView.renderList(service.findAllJogos())));
 
         app.get("/jogos/adicionar", ctx -> ctx.html(JogoView.renderForm(new HashMap<>())));
 
         app.post("/jogos", ctx -> {
             String jogo = ctx.formParam("jogo");
-            double preco = ctx.formParamAsClass("preco", Double.class)
-                    .check(p -> p > 0, "Preço deve ser maior que zero")
-                    .get();
             String descricao = ctx.formParam("descricao");
 
             HashMap<String, Object> model = new HashMap<>();
 
             try {
+                double preco = ctx.formParamAsClass("preco", Double.class)
+                        .check(p -> p > 0, "Preço deve ser maior que zero")
+                        .get();
+
                 service.addJogo(jogo, preco, descricao);
                 ctx.redirect("/jogos");
+
             } catch (Exception e) {
                 model.put("erro", "Erro ao adicionar jogo: " + e.getMessage());
+
                 model.put("jogo", jogo);
-                model.put("preco", preco);
                 model.put("descricao", descricao);
+                model.put("preco", ctx.formParam("preco"));
+
                 ctx.html(JogoView.renderForm(model));
             }
         });
@@ -42,7 +48,7 @@ public class JogoController {
             try {
                 var jogo = service.findJogoById(id);
                 model.put("id", jogo.getId());
-                model.put("nome", jogo.getJogo());
+                model.put("jogo", jogo.getJogo());
                 model.put("preco", jogo.getPreco());
                 model.put("descricao", jogo.getDescricao());
                 ctx.html(JogoView.renderForm(model));
@@ -54,22 +60,25 @@ public class JogoController {
         app.post("/jogos/editar/{id}", ctx -> {
             int id = Integer.parseInt(ctx.pathParam("id"));
             String jogo = ctx.formParam("jogo");
-            double preco = ctx.formParamAsClass("preco", Double.class)
-                    .check(p -> p > 0, "Preço deve ser maior que zero")
-                    .get();
             String descricao = ctx.formParam("descricao");
 
             HashMap<String, Object> model = new HashMap<>();
 
             try {
+                double preco = ctx.formParamAsClass("preco", Double.class)
+                        .check(p -> p > 0, "Preço deve ser maior que zero")
+                        .get();
+
                 service.updateJogo(id, jogo, preco, descricao);
                 ctx.redirect("/jogos");
+
             } catch (Exception e) {
                 model.put("erro", "Erro ao atualizar jogo: " + e.getMessage());
                 model.put("id", id);
                 model.put("jogo", jogo);
-                model.put("preco", preco);
                 model.put("descricao", descricao);
+                model.put("preco", ctx.formParam("preco"));
+
                 ctx.html(JogoView.renderForm(model));
             }
         });

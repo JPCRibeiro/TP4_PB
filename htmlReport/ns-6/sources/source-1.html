@@ -48,34 +48,34 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">BibliotecaView</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    50%
   </span>
   <span class="absValue">
-    (0/2)
+    (1/2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/2)
+    (2/2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    94,4%
   </span>
   <span class="absValue">
-    (0/18)
+    (17/18)
   </span>
 </td>
 </tr>
@@ -96,8 +96,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 <b class="nc">&nbsp;public class BibliotecaView {</b>
 &nbsp;    public static String render(Usuario usuario, List&lt;Jogo&gt; biblioteca, List&lt;Jogo&gt; todosJogos) {
-<b class="nc">&nbsp;        StringBuilder html = new StringBuilder(</b>
-<b class="nc">&nbsp;                String.format(&quot;&quot;&quot;</b>
+<b class="fc">&nbsp;        StringBuilder html = new StringBuilder(</b>
+<b class="fc">&nbsp;                String.format(&quot;&quot;&quot;</b>
 &nbsp;                        &lt;!DOCTYPE html&gt;
 &nbsp;                        &lt;html lang=&quot;pt&quot;&gt;
 &nbsp;                        &lt;head&gt;
@@ -107,30 +107,30 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;                            &lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js&quot;&gt;&lt;/script&gt;
 &nbsp;                        &lt;/head&gt;
 &nbsp;                        &lt;body&gt;
-<b class="nc">&nbsp;                        &quot;&quot;&quot;, usuario.getNome())</b>
+<b class="fc">&nbsp;                        &quot;&quot;&quot;, usuario.getNome())</b>
 &nbsp;        );
 &nbsp;
-<b class="nc">&nbsp;        html.append(HeaderView.render());</b>
+<b class="fc">&nbsp;        html.append(HeaderView.render());</b>
 &nbsp;
-<b class="nc">&nbsp;        html.append(&quot;&lt;div class=&#39;container mt-5&#39;&gt;&quot;);</b>
-<b class="nc">&nbsp;        html.append(&quot;&lt;h1&gt;Biblioteca de &quot;).append(usuario.getNome()).append(&quot;&lt;/h1&gt;&quot;);</b>
-<b class="nc">&nbsp;        html.append(&quot;&lt;h4&gt;Jogos que possui&lt;/h4&gt;&quot;);</b>
-<b class="nc">&nbsp;        html.append(&quot;&lt;ul class=&#39;list-group mt-3&#39;&gt;&quot;);</b>
-<b class="nc">&nbsp;        for (Jogo j : biblioteca) {</b>
-<b class="nc">&nbsp;            html.append(&quot;&lt;li class=&#39;list-group-item d-flex justify-content-between&#39;&gt;&quot;)</b>
-<b class="nc">&nbsp;                    .append(j.getJogo())</b>
-<b class="nc">&nbsp;                    .append(&quot;&lt;span&gt;R$ &quot;).append(j.getPreco()).append(&quot;&lt;/span&gt;&quot;)</b>
-<b class="nc">&nbsp;                    .append(&quot;&lt;/li&gt;&quot;);</b>
+<b class="fc">&nbsp;        html.append(&quot;&lt;div class=&#39;container mt-5&#39;&gt;&quot;);</b>
+<b class="fc">&nbsp;        html.append(&quot;&lt;h1&gt;Biblioteca de &quot;).append(usuario.getNome()).append(&quot;&lt;/h1&gt;&quot;);</b>
+<b class="fc">&nbsp;        html.append(&quot;&lt;h4&gt;Jogos que possui&lt;/h4&gt;&quot;);</b>
+<b class="fc">&nbsp;        html.append(&quot;&lt;ul class=&#39;list-group mt-3&#39;&gt;&quot;);</b>
+<b class="fc">&nbsp;        for (Jogo j : biblioteca) {</b>
+<b class="fc">&nbsp;            html.append(&quot;&lt;li class=&#39;list-group-item d-flex justify-content-between&#39;&gt;&quot;)</b>
+<b class="fc">&nbsp;                    .append(j.getJogo())</b>
+<b class="fc">&nbsp;                    .append(&quot;&lt;span&gt;R$ &quot;).append(j.getPreco()).append(&quot;&lt;/span&gt;&quot;)</b>
+<b class="fc">&nbsp;                    .append(&quot;&lt;/li&gt;&quot;);</b>
 &nbsp;        }
-<b class="nc">&nbsp;        html.append(&quot;&lt;/ul&gt;&quot;);</b>
-<b class="nc">&nbsp;        html.append(&quot;&lt;/div&gt;&quot;);</b>
+<b class="fc">&nbsp;        html.append(&quot;&lt;/ul&gt;&quot;);</b>
+<b class="fc">&nbsp;        html.append(&quot;&lt;/div&gt;&quot;);</b>
 &nbsp;
-<b class="nc">&nbsp;        html.append(&quot;&quot;&quot;</b>
+<b class="fc">&nbsp;        html.append(&quot;&quot;&quot;</b>
 &nbsp;                &lt;/body&gt;
 &nbsp;                &lt;/html&gt;
 &nbsp;                &quot;&quot;&quot;);
 &nbsp;
-<b class="nc">&nbsp;        return html.toString();</b>
+<b class="fc">&nbsp;        return html.toString();</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -156,7 +156,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-11-20 15:01</div>
+    <div style="float:right;">generated on 2025-11-20 20:00</div>
 </div>
 </body>
 </html>

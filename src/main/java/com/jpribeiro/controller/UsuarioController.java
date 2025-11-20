@@ -12,11 +12,15 @@ import java.util.HashMap;
 import java.util.List;
 
 public class UsuarioController {
-    private final UsuarioService usuarioService = new UsuarioService();
-    private final JogoService jogoService = new JogoService();
-    private final BibliotecaDAO bibliotecaDAO = new BibliotecaDAO();
+    private final UsuarioService usuarioService;
+    private final JogoService jogoService;
+    private final BibliotecaDAO bibliotecaDAO;
 
-    public UsuarioController(Javalin app) {
+    public UsuarioController(Javalin app, UsuarioService usuarioService, JogoService jogoService, BibliotecaDAO bibliotecaDAO) {
+        this.usuarioService = usuarioService;
+        this.jogoService = jogoService;
+        this.bibliotecaDAO = bibliotecaDAO;
+
         app.get("/usuarios", ctx -> ctx.html(UsuarioView.renderList(usuarioService.findAllUsuarios())));
 
         app.get("/usuarios/adicionar", ctx ->

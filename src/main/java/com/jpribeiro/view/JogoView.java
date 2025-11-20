@@ -3,6 +3,7 @@ package com.jpribeiro.view;
 import com.jpribeiro.model.Jogo;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class JogoView {
@@ -74,14 +75,26 @@ public class JogoView {
 
         String jogo = (String) model.getOrDefault("jogo", "");
         String descricao = (String) model.getOrDefault("descricao", "");
-        Double preco = (Double) model.getOrDefault("preco", 0.0);
+        Object precoObj = model.getOrDefault("preco", 0.0);
+        Double preco;
+
+        if (precoObj instanceof Number) {
+            preco = ((Number) precoObj).doubleValue();
+        } else {
+            try {
+                String precoStr = precoObj.toString().replace(",", ".");
+                preco = Double.parseDouble(precoStr);
+            } catch (Exception e) {
+                preco = 0.0;
+            }
+        }
         String erro = (String) model.get("erro");
 
         String erroHtml = (erro != null && !erro.isBlank())
                 ? String.format("<div class='alert alert-danger'>%s</div>", erro)
                 : "";
 
-        return String.format("""
+        return String.format(Locale.US, """
         <!DOCTYPE html>
         <html lang="pt">
         <head>
